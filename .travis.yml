@@ -1,0 +1,15 @@
+# references:
+# * http://www.objc.io/issue-6/travis-ci.html
+# * https://github.com/supermarin/xcpretty#usage
+
+language: swift
+osx_image: xcode10
+xcode_workspace: GithubAPI.xcworkspace
+xcode_scheme: GithubAPI_Example
+before_install:
+  - gem install cocoapods
+  - cd Example
+  - pod install
+  - pod update BaseAPI
+script:
+  - set -o pipefail && xcodebuild -workspace GithubAPI.xcworkspace -scheme GithubAPI_Example -sdk iphonesimulator12.0 clean build | xcpretty
